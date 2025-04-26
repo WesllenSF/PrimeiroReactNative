@@ -1,27 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, Text, View ,TextInput, TouchableOpacity} from 'react-native';
 
 export default function App() {
+
+  function calcularImc(){
+    alert("Calculo de IMC")
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>IMC</Text>
-      <StatusBar style="auto" />
-        <View style={styles.bloco}>
-            <Text style={styles.label}>Peso</Text>
+
+        <View>
+            <Text style={styles.label}></Text>
               <TextInput 
               style={styles.input} 
+              keyboardType="numeric"
+              placeholder="Peso"
               />
         </View>
-        <View style={styles.bloco}>
-            <Text style={styles.label}>Altura</Text>
+        <View>
+            <Text style={styles.label}></Text>
               <TextInput 
               style={styles.input} 
+              keyboardType="numeric"
+              placeholder="Peso"
               />
         </View>
 
         <View>
-            <TouchableOpacity style={styles.btnTxt}>
-              <Text>Calcular</Text>
+            <TouchableOpacity style={styles.btnTxt} onPress={calcularImc}>
+              <Text style={styles.textBtn}>Calcular</Text>
             </TouchableOpacity>
         </View>
 
@@ -32,25 +41,24 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ccc',
+    backgroundColor: '#f0f8ff',
     alignItems: 'center',
     justifyContent: 'center',
   },
   input: {
-    backgroundColor: '#f0f8ff',
+    backgroundColor: 'white',
     color: 'black',
+    fontSize: 15,
     width: 250,
     height: 50,
-    borderWidth: 1,
+    paddingLeft: 10,
+    borderWidth: 0.8,
     borderRadius: 10,
   },
   titulo: {
     color: 'black',
     marginBottom: 80,
     fontSize: 80,
-  },
-  bloco: {
-
   },
   btnTxt: {
     marginTop:  30,
@@ -65,12 +73,11 @@ const styles = StyleSheet.create({
   },
   label: {
     paddingBottom:10,
-    paddingTop: 20,
+    paddingTop: 10,
+  },
+  textBtn: {
     color: 'black',
     fontSize: 20,
     fontWeight: 'bold',
-    paddingLeft: 10,
-  },
-
-
+  }
 });
