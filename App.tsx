@@ -1,10 +1,22 @@
 
 import { StyleSheet, Text, View ,TextInput, TouchableOpacity} from 'react-native';
+import { useState } from 'react';
 
 export default function App() {
 
+  // Definindo variavel
+
+  const [peso, setPeso] = useState('');
+  const [altura, setAltura] = useState('');
+
+
+// Função para o calculo
   function calcularImc(){
-    alert("Calculo de IMC")
+    const pesoNum = parseFloat(peso);
+    const alturaNum = parseFloat(altura);
+
+    const imc = pesoNum / (alturaNum * alturaNum);
+    alert(`Seu IMC é: ${imc.toFixed(2)}`);
   }
 
   return (
@@ -12,23 +24,31 @@ export default function App() {
       <Text style={styles.titulo}>IMC</Text>
 
         <View>
-            <Text style={styles.label}></Text>
+            <Text style={styles.label}>Altura</Text>
+
+            {/* input da altura */}
               <TextInput 
               style={styles.input} 
               keyboardType="numeric"
-              placeholder="Peso"
+              placeholder="Altura"
+              value={altura}
+              onChangeText={setAltura}  
               />
         </View>
         <View>
-            <Text style={styles.label}></Text>
+            <Text style={styles.label}>Peso</Text>
+            {/* Input do peso */}
               <TextInput 
               style={styles.input} 
               keyboardType="numeric"
               placeholder="Peso"
+              value={peso}
+              onChangeText={setPeso}
               />
         </View>
 
         <View>
+          {/* Botão que chama a função do calculo */}
             <TouchableOpacity style={styles.btnTxt} onPress={calcularImc}>
               <Text style={styles.textBtn}>Calcular</Text>
             </TouchableOpacity>
