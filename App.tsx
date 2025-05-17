@@ -3,12 +3,11 @@ import { StyleSheet, Text, View ,TextInput, TouchableOpacity} from 'react-native
 import { useState } from 'react';
 
 export default function App() {
-
   // Definindo variavel
 
   const [peso, setPeso] = useState('');
   const [altura, setAltura] = useState('');
-
+  const [resultado, setResultado] = useState('');
 
 // Função para o calculo
   function calcularImc(){
@@ -16,7 +15,24 @@ export default function App() {
     const alturaNum = parseFloat(altura);
 
     const imc = pesoNum / (alturaNum * alturaNum);
-    alert(`Seu IMC é: ${imc.toFixed(2)}`);
+    let classe = '';
+
+    if (imc <= 18.5) {
+      classe = 'Abaixo do peso';
+    } else if (imc >= 18.6 && imc <= 24.99) {
+      classe = 'Peso ideal';
+    } else if (imc >= 25 && imc <= 29.99) {
+      classe = 'Levemente acima do peso';
+    } else if (imc >= 30 && imc <= 34.99) {
+      classe = 'Obesidade grau I';
+    } else if (imc >= 35 && imc <= 39.99) {
+      classe = 'Obesidade grau II (severa)';
+    } else if (imc >= 40) {
+      classe = 'Obesidade grau III (mórbida)';
+    }
+
+    setResultado(`Seu IMC é: ${imc.toFixed(2)} ${classe}`);
+
   }
 
   return (
@@ -30,7 +46,7 @@ export default function App() {
               <TextInput 
               style={styles.input} 
               keyboardType="numeric"
-              placeholder="Altura"
+              placeholder="Altura: 1.65"
               value={altura}
               onChangeText={setAltura}  
               />
@@ -41,7 +57,7 @@ export default function App() {
               <TextInput 
               style={styles.input} 
               keyboardType="numeric"
-              placeholder="Peso"
+              placeholder="Peso: 70"
               value={peso}
               onChangeText={setPeso}
               />
@@ -54,11 +70,26 @@ export default function App() {
             </TouchableOpacity>
         </View>
 
+        {resultado && (
+              <View>
+                <Text style={styles.resultado}>{resultado}</Text>
+              </View>
+            )}
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  resultado: {
+    color: 'black',
+    marginTop: 25,
+    fontSize: 25,
+    paddingLeft:10,
+    paddingRight:10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     backgroundColor: '#f0f8ff',
